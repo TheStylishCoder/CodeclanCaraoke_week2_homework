@@ -27,6 +27,8 @@ class TestRoom(unittest.TestCase):
         self.guest_3 = Guest("Michael Scott", 5.00)
         self.guest_4 = Guest("Dwight Schrute", 8.00)
         self.guest_5 = Guest("Angela Martin", 25.00)
+        self.guest_6 = Guest("Oscar Martinez", 6.00)
+        self.guest_7 = Guest("Kevin Malone", 10.00)
         
 
     def test_room_has_name(self):
@@ -35,24 +37,39 @@ class TestRoom(unittest.TestCase):
     def test_room_has_capacity(self):
         self.assertEqual(4, self.room.capacity)
 
-    def test_room_has_entry_fee(self):
-        self.assertEqual(8.00, self.room.fee)
-
-  
     def test_room_has_playlist(self):
         self.assertEqual(10, len(self.room.playlist))
 
-    def test_room_guestlist_starts_at_0(self):
-        self.assertEqual(0, len(self.room.guestlist))
+    def test_room_has_entry_fee(self):
+        self.assertEqual(8.00, self.room.fee)
+
+    def test_room_occupants_starts_at_0(self):
+        self.assertEqual(0, len(self.room.occupants)) 
+
+    def test_room_waiting_list_starts_at_0(self):
+        self.assertEqual(0, len(self.room.waiting_list))
+
+    def test_add_guest_to_waiting_list(self):
+        self.room.add_guest_to_waiting_list(self.guest_1)
+        self.assertEqual(1, len(self.room.waiting_list))
+
+    def test_remove_guest_from_waiting_list(self):
+        self.room.add_guest_to_waiting_list(self.guest_1)
+        self.room.remove_guest_from_waiting_list(self.guest_1)
 
     def test_check_in_guest_to_room(self):
+        self.room.add_guest_to_waiting_list(self.guest_1)
         self.room.check_in_guest_to_room(self.guest_1)
-        self.assertEqual(1, len(self.room.guestlist))
+        self.assertEqual(0, len(self.room.waiting_list))
+        self.assertEqual(1, len(self.room.occupants))
 
     def test_check_out_guest_from_room(self):
+        self.room.add_guest_to_waiting_list(self.guest_1)
         self.room.check_in_guest_to_room(self.guest_1)
         self.room.check_out_guest_from_room(self.guest_1)
-        self.assertEqual(0, len(self.room.guestlist))
+        self.assertEqual(0, len(self.room.waiting_list))
+        self.assertEqual(0, len(self.room.occupants))
+
 
     def test_can_add_songs_to_room_playlist(self):
         self.room.add_song_to_playlist(self.song_11)
@@ -70,26 +87,72 @@ class TestRoom(unittest.TestCase):
     #     self.room.check_in_guest_to_room(self.guest_2)
     #     self.assertEqual(False, self.room.room_has_met_capacity())
 
-    def test_checking_capacity_under_capacity(self):
-        self.room.check_in_guest_to_room(self.guest_1)
-        self.assertEqual(1, len(self.room.guestlist))
-        self.assertEqual("There's still room for another guest in this booth.", self.room.checking_capacity_level())
+    # def test_checking_capacity_under_capacity(self): here
+    #     self.room.check_in_guest_to_room(self.guest_1)
+    #     self.assertEqual(1, len(self.room.guestlist))
+    #     self.assertEqual("There's still room for another guest in this booth.", self.room.checking_capacity_level())
 
-    def test_checking_capacity_has_been_met(self):
-        self.room.check_in_guest_to_room(self.guest_1)
-        self.room.check_in_guest_to_room(self.guest_2)
-        self.room.check_in_guest_to_room(self.guest_3)
-        self.room.check_in_guest_to_room(self.guest_4)
-        self.assertEqual(4, len(self.room.guestlist))
-        self.assertEqual("This booth is now full.", self.room.checking_capacity_level())
+    # def test_checking_capacity_has_been_met(self):
+    #     self.room.check_in_guest_to_room(self.guest_1)
+    #     self.room.check_in_guest_to_room(self.guest_2)
+    #     self.room.check_in_guest_to_room(self.guest_3)
+    #     self.room.check_in_guest_to_room(self.guest_4)
+    #     self.assertEqual(4, len(self.room.guestlist))
+    #     self.assertEqual("This booth is now full.", self.room.checking_capacity_level())
 
-    def test_checking_capacity_is_over_capacity(self):
-        self.room.check_in_guest_to_room(self.guest_1)
-        self.room.check_in_guest_to_room(self.guest_2)
-        self.room.check_in_guest_to_room(self.guest_3)
-        self.room.check_in_guest_to_room(self.guest_4)
-        self.room.check_in_guest_to_room(self.guest_5)
-        self.assertEqual(5, len(self.room.guestlist))
-        self.assertEqual("Sorry, this booth's capacity is 4.", self.room.checking_capacity_level())
+    # def test_checking_capacity_is_over_capacity(self):
+    #     self.room.check_in_guest_to_room(self.guest_1)
+    #     self.room.check_in_guest_to_room(self.guest_2)
+    #     self.room.check_in_guest_to_room(self.guest_3)
+    #     self.room.check_in_guest_to_room(self.guest_4)
+    #     self.room.check_in_guest_to_room(self.guest_5)
+    #     self.assertEqual(5, len(self.room.guestlist))
+    #     self.assertEqual("Sorry, this booth's capacity is 4.", self.room.checking_capacity_level())
        
+    def test_can_guests_move_from_waiting_list_to_room_5_guests_1_cannot_pay(self):
+        self.room.add_guest_to_waiting_list(self.guest_1)
+        self.room.add_guest_to_waiting_list(self.guest_2)
+        self.room.add_guest_to_waiting_list(self.guest_3)
+        self.room.add_guest_to_waiting_list(self.guest_4)
+        self.room.add_guest_to_waiting_list(self.guest_5)
+        self.room.can_allow_guests_into_room(self.room.waiting_list)
+        self.room.remove_guests_from_waiting_list_to_move_to_occupants(self.room.occupants)
+        self.assertEqual(4, len(self.room.occupants))
+        self.assertEqual(1, len(self.room.waiting_list))
+        
     
+
+    def test_can_guests_move_from_waiting_list_to_room_4_guests_2_cannot_pay(self):
+        self.room.add_guest_to_waiting_list(self.guest_1)
+        self.room.add_guest_to_waiting_list(self.guest_2)
+        self.room.add_guest_to_waiting_list(self.guest_3)
+        self.room.add_guest_to_waiting_list(self.guest_6)
+        self.room.can_allow_guests_into_room(self.room.waiting_list)
+        self.room.remove_guests_from_waiting_list_to_move_to_occupants(self.room.occupants)
+        self.assertEqual(2, len(self.room.occupants))
+        self.assertEqual(2, len(self.room.waiting_list))
+        
+
+    def test_can_guests_move_from_waiting_list_to_room_5_guests_all_can_pay(self):
+        self.room.add_guest_to_waiting_list(self.guest_1)
+        self.room.add_guest_to_waiting_list(self.guest_2)
+        self.room.add_guest_to_waiting_list(self.guest_4)
+        self.room.add_guest_to_waiting_list(self.guest_5)
+        self.room.add_guest_to_waiting_list(self.guest_7)
+        self.room.can_allow_guests_into_room(self.room.waiting_list)
+        self.room.remove_guests_from_waiting_list_to_move_to_occupants(self.room.occupants)
+        self.assertEqual(4, len(self.room.occupants))
+        self.assertEqual(1, len(self.room.waiting_list))
+        
+    def test_can_guests_move_from_waiting_list_to_room_4_guests_all_can_pay(self):
+        self.room.add_guest_to_waiting_list(self.guest_1)
+        self.room.add_guest_to_waiting_list(self.guest_2)
+        self.room.add_guest_to_waiting_list(self.guest_4)
+        self.room.add_guest_to_waiting_list(self.guest_7)
+        self.room.can_allow_guests_into_room(self.room.waiting_list)
+        self.room.remove_guests_from_waiting_list_to_move_to_occupants(self.room.occupants)
+        self.assertEqual(4, len(self.room.occupants))
+        self.assertEqual(0, len(self.room.waiting_list))
+  
+
+  

@@ -23,7 +23,6 @@ class TestGuest(unittest.TestCase):
 
         playlist = [self.song_1, self.song_2, self.song_3, self.song_4, self.song_5, self.song_6, self.song_7, self.song_8, self.song_9, self.song_10]
        
-        # self.guest = Guest("Pam Halpert", 20.00)
         self.room = Room("Booth 1", 4, playlist, 8.00)
 
     def test_guest_has_name(self):
