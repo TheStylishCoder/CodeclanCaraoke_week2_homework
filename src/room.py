@@ -18,6 +18,14 @@ class Room:
         self.playlist.append(song)
        
 
-    def room_has_met_capacity(self):
-        return len(self.guestlist) >= self.capacity
+    # def room_has_met_capacity(self):
+    #     return len(self.guestlist) >= self.capacity
            
+    
+    def checking_capacity_level(self):
+        if len(self.guestlist) == self.capacity:
+            return "This booth is now full." 
+        elif len(self.guestlist) > self.capacity:
+            return "Sorry, this booth's capacity is " + str(self.capacity) + "."
+        elif len(self.guestlist) < self.capacity:
+            return "There's still room for another guest in this booth."   

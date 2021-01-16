@@ -55,14 +55,38 @@ class TestRoom(unittest.TestCase):
         self.room.add_song_to_playlist(self.song_11)
         self.assertEqual(11, len(self.room.playlist))
 
-    def test_room_has_met_capacity_returns_true(self):
+    # def test_room_has_met_capacity_returns_true(self):
+    #     self.room.check_in_guest_to_room(self.guest_1)
+    #     self.room.check_in_guest_to_room(self.guest_2)
+    #     self.room.check_in_guest_to_room(self.guest_3)
+    #     self.room.check_in_guest_to_room(self.guest_4)
+    #     self.assertEqual(True, self.room.room_has_met_capacity())
+
+    # def test_room_has_met_capacity_returns_false(self):
+    #     self.room.check_in_guest_to_room(self.guest_1)
+    #     self.room.check_in_guest_to_room(self.guest_2)
+    #     self.assertEqual(False, self.room.room_has_met_capacity())
+
+    def test_checking_capacity_under_capacity(self):
+        self.room.check_in_guest_to_room(self.guest_1)
+        self.assertEqual(1, len(self.room.guestlist))
+        self.assertEqual("There's still room for another guest in this booth.", self.room.checking_capacity_level())
+
+    def test_checking_capacity_has_been_met(self):
         self.room.check_in_guest_to_room(self.guest_1)
         self.room.check_in_guest_to_room(self.guest_2)
         self.room.check_in_guest_to_room(self.guest_3)
         self.room.check_in_guest_to_room(self.guest_4)
-        self.assertEqual(True, self.room.room_has_met_capacity())
+        self.assertEqual(4, len(self.room.guestlist))
+        self.assertEqual("This booth is now full.", self.room.checking_capacity_level())
 
-    def test_room_has_met_capacity_returns_false(self):
+    def test_checking_capacity_is_over_capacity(self):
         self.room.check_in_guest_to_room(self.guest_1)
         self.room.check_in_guest_to_room(self.guest_2)
-        self.assertEqual(False, self.room.room_has_met_capacity())
+        self.room.check_in_guest_to_room(self.guest_3)
+        self.room.check_in_guest_to_room(self.guest_4)
+        self.room.check_in_guest_to_room(self.guest_5)
+        self.assertEqual(5, len(self.room.guestlist))
+        self.assertEqual("Sorry, this booth's capacity is 4.", self.room.checking_capacity_level())
+       
+    
