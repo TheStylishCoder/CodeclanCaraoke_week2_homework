@@ -20,13 +20,13 @@ class TestRoom(unittest.TestCase):
 
         playlist = [self.song_1, self.song_2, self.song_3, self.song_4, self.song_5, self.song_6, self.song_7, self.song_8, self.song_9, self.song_10]
        
-        self.room = Room("Booth 1", 4, playlist) 
+        self.room = Room("Booth 1", 4, playlist, 8.00) 
 
-        self.guest_1 = Guest("Pam Halpert")
-        self.guest_2 = Guest("Jim Halpert")
-        self.guest_3 = Guest("Michael Scott")
-        self.guest_4 = Guest("Dwight Schrute")
-        self.guest_5 = Guest("Angela Martin")
+        self.guest_1 = Guest("Pam Halpert", 20.00)
+        self.guest_2 = Guest("Jim Halpert", 15.00)
+        self.guest_3 = Guest("Michael Scott", 5.00)
+        self.guest_4 = Guest("Dwight Schrute", 8.00)
+        self.guest_5 = Guest("Angela Martin", 25.00)
         
 
     def test_room_has_name(self):
@@ -34,6 +34,9 @@ class TestRoom(unittest.TestCase):
 
     def test_room_has_capacity(self):
         self.assertEqual(4, self.room.capacity)
+
+    def test_room_has_entry_fee(self):
+        self.assertEqual(8.00, self.room.fee)
 
   
     def test_room_has_playlist(self):
