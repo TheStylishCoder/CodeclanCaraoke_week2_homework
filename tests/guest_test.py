@@ -6,7 +6,7 @@ from src.song import Song
 class TestGuest(unittest.TestCase):
 
     def setUp(self):
-        self.guest = Guest("Pam Halpert", 20.00)
+        self.guest = Guest("Pam Halpert", 20.00, "Don't Go Breaking My Heart")
         
         
         self.song_1 = Song("Dancing Queen", "ABBA") 
@@ -26,14 +26,17 @@ class TestGuest(unittest.TestCase):
         self.room = Room("Booth 1", 4, playlist, 8.00)
 
     def test_guest_has_name(self):
-        self.assertEqual("Pam Halpert", self.guest.name)
+        self.assertEqual("Pam Halpert", self.guest.name, "Don't Go Breaking My Heart")
 
     def test_guest_has_money(self):
         self.assertEqual(20.00, self.guest.money)
+
+    def test_guest_has_favourite_song(self):
+        self.assertEqual("Don't Go Breaking My Heart", self.guest.favourite_song)
 
     def test_guest_has_sufficient_funds_for_entry_returns_true(self):
         self.assertEqual(True, self.guest.has_sufficient_funds(self.room))
 
     def test_guest_has_sufficient_funds_for_entry_returns_false(self):
-        guest_3 = Guest("Michael Scott", 5.00)
+        guest_3 = Guest("Michael Scott", 5.00, "Love Shack")
         self.assertEqual(False, guest_3.has_sufficient_funds(self.room))

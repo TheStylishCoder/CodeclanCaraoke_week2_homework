@@ -22,13 +22,13 @@ class TestRoom(unittest.TestCase):
        
         self.room = Room("Booth 1", 4, playlist, 8.00) 
 
-        self.guest_1 = Guest("Pam Halpert", 20.00)
-        self.guest_2 = Guest("Jim Halpert", 15.00)
-        self.guest_3 = Guest("Michael Scott", 5.00)
-        self.guest_4 = Guest("Dwight Schrute", 8.00)
-        self.guest_5 = Guest("Angela Martin", 25.00)
-        self.guest_6 = Guest("Oscar Martinez", 6.00)
-        self.guest_7 = Guest("Kevin Malone", 10.00)
+        self.guest_1 = Guest("Pam Halpert", 20.00, "Don't Go Breaking My Heart")
+        self.guest_2 = Guest("Jim Halpert", 15.00, "Disco 2000")
+        self.guest_3 = Guest("Michael Scott", 5.00, "Love Shack")
+        self.guest_4 = Guest("Dwight Schrute", 8.00, "We Didn't Start The Fire")
+        self.guest_5 = Guest("Angela Martin", 25.00, "9 To 5")
+        self.guest_6 = Guest("Oscar Martinez", 6.00, "You Spin Me Round")
+        self.guest_7 = Guest("Kevin Malone", 10.00, "I'm Still Standing")
         
 
     def test_room_has_name(self):
