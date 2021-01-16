@@ -34,6 +34,13 @@ class TestGuest(unittest.TestCase):
     def test_guest_has_favourite_song(self):
         self.assertEqual("Don't Go Breaking My Heart", self.guest.favourite_song)
 
+    def test_guest_cheers_for_favourite_song_match_true(self):
+        self.assertEqual("Whoo! I love this song.", self.guest.cheers_for_favourite_song(self.room.playlist))
+
+    def test_guest_cheers_for_favourite_song_match_false(self):
+        guest_4 = Guest("Dwight Schrute", 8.00, "We Didn't Start The Fire")
+        self.assertEqual("Boo. They don't have my favourite song.", guest_4.cheers_for_favourite_song(self.room.playlist))
+
     def test_guest_has_sufficient_funds_for_entry_returns_true(self):
         self.assertEqual(True, self.guest.has_sufficient_funds(self.room))
 

@@ -7,3 +7,9 @@ class Guest:
 
     def has_sufficient_funds(self, room):
         return self.money >= room.fee 
+
+    def cheers_for_favourite_song(self, playlist):
+        for song in playlist:
+            if song.title == self.favourite_song:
+                return "Whoo! I love this song."
+        return "Boo. They don't have my favourite song."
