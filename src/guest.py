@@ -17,3 +17,5 @@ class Guest:
     def pays(self, room):
         if self.has_sufficient_funds(room):
             self.money -= room.fee
+
+   

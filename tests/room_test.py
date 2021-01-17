@@ -2,6 +2,7 @@ import unittest
 from src.room import Room 
 from src.guest import Guest
 from src.song import Song 
+from src.bar import Bar
 
 class TestRoom(unittest.TestCase):
 
@@ -29,6 +30,8 @@ class TestRoom(unittest.TestCase):
         self.guest_5 = Guest("Angela Martin", 25.00, "9 To 5")
         self.guest_6 = Guest("Oscar Martinez", 6.00, "You Spin Me Round")
         self.guest_7 = Guest("Kevin Malone", 10.00, "I'm Still Standing")
+
+        self.bar = Bar("Caraoke Club", 500.00)
         
 
     def test_room_has_name(self):
@@ -128,5 +131,16 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(4, len(self.room.occupants))
         self.assertEqual(0, len(self.room.waiting_list))
   
+
+    def test_guest_pays_when_entering_room(self):
+        self.room.add_guest_to_waiting_list(self.guest_1)
+        self.room.can_allow_guests_into_room(self.room.waiting_list)
+        self.room.remove_guests_from_waiting_list_to_move_to_occupants(self.room.occupants)
+        self.guest_1.pays(self.room)
+        self.bar.add_money_to_till(self.room.fee)
+        self.assertEqual(0, len(self.room.waiting_list))
+        self.assertEqual(1, len(self.room.occupants))
+        self.assertEqual(12.00, self.guest_1.money)
+        self.assertEqual(508.00, self.bar.till)
 
   
