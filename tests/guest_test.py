@@ -47,3 +47,7 @@ class TestGuest(unittest.TestCase):
     def test_guest_has_sufficient_funds_for_entry_returns_false(self):
         guest_3 = Guest("Michael Scott", 5.00, "Love Shack")
         self.assertEqual(False, guest_3.has_sufficient_funds(self.room))
+
+    def test_guest_can_pay(self):
+        self.guest.pays(self.room)
+        self.assertEqual(12.00, self.guest.money)

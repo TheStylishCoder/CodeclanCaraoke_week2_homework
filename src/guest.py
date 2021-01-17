@@ -13,3 +13,7 @@ class Guest:
             if song.title == self.favourite_song:
                 return "Whoo! I love this song."
         return "Boo. They don't have my favourite song."
+
+    def pays(self, room):
+        if self.has_sufficient_funds(room):
+            self.money -= room.fee

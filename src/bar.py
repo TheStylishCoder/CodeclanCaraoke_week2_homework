@@ -4,3 +4,5 @@ class Bar:
         self.name = name
         self.till = till 
         self.drinks = drinks
+
+   
