@@ -24,20 +24,7 @@ class Room:
 
     def add_song_to_playlist(self, song):
         self.playlist.append(song)
-       
-
-    # def room_has_met_capacity(self):
-    #     return len(self.guestlist) >= self.capacity
-           
-    
-    # def checking_capacity_level(self):
-    #     if len(self.guestlist) == self.capacity:
-    #         return "This booth is now full." 
-    #     elif len(self.guestlist) > self.capacity:
-    #         return "Sorry, this booth's capacity is " + str(self.capacity) + "."
-    #     elif len(self.guestlist) < self.capacity:
-    #         return "There's still room for another guest in this booth."   
-
+        
 
     def can_allow_guests_into_room(self, waiting_list):
         for guest in waiting_list:
@@ -49,4 +36,14 @@ class Room:
         for guest in occupants:
             if guest in self.waiting_list:
                 self.waiting_list.remove(guest)
+
+    def get_reason_why_guests_cannot_enter(self, waiting_list):
+        for guest in waiting_list:
+            if (guest.money < self.fee) and (len(self.occupants) == self.capacity):
+                return "Sorry, you do not have enough money to pay the entry fee and this booth is currently full."
+            elif guest.money < self.fee: 
+                return "Sorry, you do not have enough money to pay the entry fee."
+            elif len(self.occupants) == self.capacity:
+                return "Sorry, this booth's capacity is " + str(self.capacity) + " and is now full."
+
                
