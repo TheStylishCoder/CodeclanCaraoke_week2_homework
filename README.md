@@ -15,17 +15,21 @@ Add songs to rooms
 ### Extensions
 
 What happens if there are more guests trying to be checked in than there is free space in the room?
+
 Karaoke venues usually have an entry fee - So the guests could have money so they can pay it.
 
 ### Advanced extensions
 
 Guests could have a favourite song, and if their favourite song is on the room's playlist, they can cheer loudly! (return a string like "Whoo!")
+
 Rooms can keep track of the entry fees/spending of the guests - maybe add a bar tab/bar class?
+
 Add anything extra you think would be good to have at a karaoke venue!
 
 ### Getting Started
 
 Create a new directory for your homework called codeclan_caraoke
+
 Create a .gitignore file in this directory and paste the following into it:
 
 __pycache__
@@ -33,16 +37,24 @@ __pycache__
 Create a file called run_tests.py and paste the following code into it:
 
 import unittest
+
+
 from tests.guest_test import TestGuest
+
 from tests.room_test import TestRoom
+
 from tests.song_test import TestSong
 
 
 if __name__ == '__main__':
-    unittest.main()
+   
+   unittest.main()
+
 
 Create a tests directory and a classes directory.
+
 To run the tests in Terminal type
+
 python3 run_tests.py
 
 ### PDA Reminder:
@@ -50,8 +62,11 @@ python3 run_tests.py
 As part of this homework you are required to take screenshots of the following:
 
 - A list in a program
+
 - A function that uses the list
+
 - The result of the function running
+
 Submit your PDA evidence (screenshots, etc.) to Canvas
 
 PDA Reference: I.T 5
